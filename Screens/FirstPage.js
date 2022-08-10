@@ -1,12 +1,20 @@
-import { StyleSheet, Text, View } from 'react-native'
+import { StyleSheet, Text, View,Button,TextInput } from 'react-native'
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 
-const FirstPage = () => {
+const FirstPage = ({navigation,route}) => {
+    
   return (
     <View style={styles.container}>
         <Text style={styles.heading}>Thai-Nichi Institute of Technology</Text>
-        <Text>Please insert your name to pass it to second screen</Text>
+        <Text styles={styles.textStyle}>Please insert your name to pass it to second screen</Text>
+        <Button 
+      title='เกี่ยวกับเรา'
+      onPress={()=>navigation.navigate('SecondPage',
+      {email:'tr.jirapon_st@tni.ac.th'}
+      )}
+      />
+        
   </View>
   )
 }

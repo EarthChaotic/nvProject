@@ -3,6 +3,7 @@ import React from 'react'
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import FirstPage from './Screens/FirstPage';
+import SecondPage from './Screens/SecondPage';
 
 
 const Stack = createNativeStackNavigator();

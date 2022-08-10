@@ -1,10 +1,14 @@
-import { StyleSheet, Text, View } from 'react-native'
-import React from 'react'
+import { StatusBar } from 'expo-status-bar';
+import { StyleSheet, Text, View, Button } from 'react-native';
+import {NavigationContainer, TabRouter} from '@react-navigation/native';
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
 
-const SecondPage = () => {
+const SecondPage = ({route}) => {
+
   return (
-    <View>
-      <Text>SecondPage</Text>
+    <View style={{flex:1,alignItems:'center',justifyContent:'center'}}>
+      <Text>About Screen</Text>
+      <Text>Email : {route.params.email}</Text>
     </View>
   )
 }
