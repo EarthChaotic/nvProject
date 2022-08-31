@@ -1,28 +1,62 @@
-import { StyleSheet, Text, View, Button, TextInput } from "react-native";
+import { StyleSheet, Text, View, Button } from "react-native";
 import React from "react";
+
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import StackFP from "./Pages/StackFP";
-import StackSP from "./Pages/StackSP";
-import StackTP from "./Pages/StackTP";
+import { 
+  createDrawerNavigator,
+  DrawerContentScrollView,
+  DrawerItemList,
+  DrawerItem
+} from "@react-navigation/drawer";
 
-const Stack = createNativeStackNavigator();
-
-export default function App() {
+function FeedScreen() {
   return (
-    <NavigationContainer>
-      <Stack.Navigator
-        initialRouteName="StackFP"
-        screenOptions={{
-          headerStyle: { backgroundColor: "#8A2BE2" },
-          headerTintColor: "#fff",
-          headerTitleStyle: { fontWeight: "bold", fontSize: 25 },
-        }}
-      >
-        <Stack.Screen name="First Page" component={StackFP} />
-        <Stack.Screen name="Second Page" component={StackSP} />
-        <Stack.Screen name="Third Page" component={StackTP} />
-      </Stack.Navigator>
-    </NavigationContainer>
+    <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
+      <Text>Feed Screen</Text>
+    </View>
   );
 }
+
+function ArticleScreen() {
+  return (
+    <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
+      <Text>Article Screen</Text>
+    </View>
+  );
+}
+
+function CustomDrawerContent(props){
+  return(
+    <DrawerContentScrollView {...props}>
+      <DrawerItemList {...props}/>
+      <DrawerItem label='Help' onPress={()=> alert('Link to help')} />
+    </DrawerContentScrollView>
+  )
+}
+const Drawer = createDrawerNavigator();
+
+function MyDreawer(){
+  return(
+    <Drawer.Navigator useLegacyImplementation
+    drawerContent={(props)=><CustomDrawerContent{...props}/>}
+      screenOptions={{
+        drawerStyle:{
+          backgroundColor:'pink',
+          width:240
+        }
+      }}>
+        <Drawer.Screen name="Feed" component={FeedScreen} />
+        <Drawer.Screen name="Article" component={ArticleScreen} />
+      </Drawer.Navigator>
+  )
+}
+const App = () => {
+  return (
+    <NavigationContainer>
+      <MyDreawer/>
+    </NavigationContainer>
+  );
+};
+
+export default App;
