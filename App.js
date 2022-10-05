@@ -3,10 +3,14 @@ import {
   Text,
   View,
   Button,
-  SafeAreaView,
   Image,
+  SafeAreaView,
+  TouchableOpacity,
 } from "react-native";
 import React from "react";
+import HomeScreen from "./screens/HomeScreen";
+import ProductScreen from "./screens/ProductScreen";
+import DetailScreen from "./Screens/DetailScreen";
 import { NavigationContainer, DefaultTheme } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import {
@@ -15,9 +19,27 @@ import {
   DrawerItemList,
   DrawerItem,
 } from "@react-navigation/drawer";
-import HomeScreen from "./Screens/HomeScreen";
-import ProductSceen from "./Screens/ProductScreen";
-import { Item } from "react-navigation-header-buttons";
+
+Stack = createNativeStackNavigator();
+
+function ProductStack() {
+  return (
+    <Stack.Navigator
+      screenOptions={{
+        headerStyle: {
+          backgroundColor: "blue",
+        },
+        headerTintColor: "white",
+        hearderTitleStyle: {
+          fontWeight: "bold",
+        },
+      }}
+    >
+      <Stack.Screen name="Product" component={ProductScreen} />
+      <Stack.Screen name="Detail" component={DetailScreen} />
+    </Stack.Navigator>
+  );
+}
 
 const MyTheme = {
   ...DefaultTheme,
@@ -27,20 +49,10 @@ const MyTheme = {
   },
 };
 
-function FeedScreen({ navigation }) {
+function NotificationsScreen() {
   return (
     <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
-      <Text>Feed Screen</Text>
-      <Button title="Open Drawer" onPress={() => navigation.openDrawer()} />
-      {/* <Button title="Toggle Drawer" onPress={() => navigation.toggleDrawer()} /> */}
-    </View>
-  );
-}
-
-function Notification() {
-  return (
-    <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
-      <Text>Notification Screen</Text>
+      <Text> Notifications Screen</Text>
     </View>
   );
 }
@@ -49,19 +61,15 @@ function CustomDrawerContent(props) {
   return (
     <SafeAreaView>
       <Image
-        source={require("./assets/react_logo.png")}
         style={styles.sideMenuProfileIcon}
+        source={require("./assets/react_logo.png")}
       />
       <DrawerContentScrollView {...props}>
         <DrawerItemList {...props} />
         <DrawerItem
-          label="Close Drawer"
+          label="Close drawer"
           onPress={() => props.navigation.closeDrawer()}
         />
-        {/* <DrawerItem
-        label="Toggle Drawer"
-        onPress={() => props.navigation.toggleDrawer()}
-      /> */}
       </DrawerContentScrollView>
     </SafeAreaView>
   );
@@ -75,13 +83,13 @@ function MyDrawer() {
       drawerContent={(props) => <CustomDrawerContent {...props} />}
       screenOptions={{
         drawerStyle: {
+          backgroundColor: "white",
           width: 240,
         },
       }}
     >
       <Drawer.Screen name="Home" component={HomeScreen} />
-      {/* <Drawer.Screen name="Feed" component={FeedScreen} /> */}
-      <Drawer.Screen name="Product" component={ProductSceen} />
+      <Drawer.Screen name="Product" component={ProductStack} />
     </Drawer.Navigator>
   );
 }
@@ -103,4 +111,10 @@ const styles = StyleSheet.create({
     borderRadius: 100 / 2,
     alignSelf: "center",
   },
-});
+    resizeMode: "center",
+    width: 100,
+    height: 100,
+    borderRadius: 100 / 2,
+    alignSelf: "center",
+},
+)
